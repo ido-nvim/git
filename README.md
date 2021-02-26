@@ -35,10 +35,14 @@ ido_git.DIFF_COMMAND = 'git diff master --name-only'
 
 ido-git comes with several default sources:
 
+
 | source   | purpose |
+|----------|---------|
 | git-diff | returns the files changed since HEAD |
 
 ### Default Bindings
 
+
 | binding    | source |
+|----------|---------|
 | <leader>gd | git_diff |
