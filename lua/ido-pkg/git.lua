@@ -6,7 +6,7 @@ local function exists(path)
   return io.open(path, "r") and true or false
 end
 
-local function check_git()
+local function ensure_git()
   -- Check if the current directory is a git repo
    if os.execute("git rev-parse --is-inside-work-tree 2>/dev/null") ~= 0 then
       vim.cmd("echohl ErrorMsg | echo 'Not a git repository!' | echohl Normal")
@@ -14,16 +14,15 @@ local function check_git()
    end
 end
 
-local module = {}
 
 -- GIT DIFF {{{
-module.DIFF_COMMAND = 'git diff --name-only'
+local DIFF_COMMAND = 'git diff --name-only'
 
-module.diff = function()
-  check_git()
+local function git_diff(pkg_opts)
+  ensure_git()
 
   local file = pkg.start({
-    items = vim.fn.systemlist(module.DIFF_COMMAND),
+    items = vim.fn.systemlist(pkg_opts.command),
     prompt = "Git diff: ",
   })
 
@@ -36,7 +35,10 @@ end
 
 -- Setup the package
 pkg.new("git_diff", {
-   main = module.diff,
+   main = git_diff,
+   pkg_opts = {
+     command = DIFF_COMMAND
+   },
    bind = {
       -- Bind it to <Leader>gf
       key = "<Leader>gd",
