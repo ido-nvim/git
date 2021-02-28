@@ -4,9 +4,9 @@ Git log, git status and git changed source for [ido.nvim](https://github.com/ido
 
 Introduces the following ido packages:
 
-| PKG_NAME   | default behavior |
-|----------|---------|
-| git-diff | returns the files changed since HEAD |
+| PKG_NAME   | purpose                              | default command       |
+|------------|--------------------------------------|-----------------------|
+| git-diff   | returns the files changed since HEAD | `git diff --name-only`|
 
 ### Installation
 
