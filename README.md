@@ -32,7 +32,7 @@ The `ido-pkg/git.lua` module is loaded by default. This behavior can be overridd
 
 `ido-git` provides the end-user the option to specify the git command used per source.
 
-For example, in order to overwrite the command used by the `git_diff` source, to return the changed files since `master`:
+For example, in order to overwrite the command used by the `git_diff` source:
 
 ```lua
 require("ido").pkg.setup('git-diff', {
@@ -40,6 +40,15 @@ require("ido").pkg.setup('git-diff', {
     -- overwrite the DIFF_COMMAND to return the changed files compared to master branch
     command = 'git diff master --name-only'
   }
+})
+```
+
+Or to overwrite it just for a single run:
+
+```lua
+require("ido").pkg.run('git-diff', {
+  -- overwrite the DIFF_COMMAND to return the changed files compared to master branch
+  command = 'git diff master --name-only'
 })
 ```
 
