@@ -15,7 +15,7 @@ Install using your favorite package manager.
 For example using packer.nvim:
 
 ```lua
-use { 'ido-nvim/ido-git', configure = function() require 'ido-pkg/git_diff' end }
+use { 'ido-nvim/git' }
 ```
 
 ### Run
