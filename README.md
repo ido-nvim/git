@@ -1,6 +1,12 @@
-# [WIP] ido-git
+# [WIP] Git
 
-Several sources for varying git commands
+Git log, git status and git changed source for [ido.nvim](https://github.com/ido-nvim/core)
+
+Introduces the following ido packages:
+
+| PKG_NAME   | purpose                              | default command       |
+|------------|--------------------------------------|-----------------------|
+| git-diff   | returns the files changed since HEAD | `git diff --name-only`|
 
 ### Installation
 
@@ -12,37 +18,46 @@ For example using packer.nvim:
 use { 'ido-nvim/ido-git', configure = function() require 'ido-pkg/git_diff' end }
 ```
 
+### Run
+
+```vim
+:lua require("ido").pkg.run(PKG_NAME, PKG_OPTS)
+```
+
+Where `PKG_NAME` is the package you wish to run.
+
 ### Configuration
 
-The `ido-pkg/git.lua` module is not loaded by default.
-This is done to provide maximum extensibility. As such one is required to `require` the module
-somewhere in your vim configuration.
+The `ido-pkg/git.lua` module is loaded by default. This behavior can be overridden by setting `g:ido_pkg_git_loaded` to 1.
 
-As a result the command used to populate the items for each source can be customized by overwriting
-the corresponding constant on the module.
+You have the option to specify the git command used per source.
 
 For example, in order to overwrite the command used by the `git_diff` source:
 
 ```lua
--- register the git package with IDO
-local ido_git = require('ido-pkg/git')
-
--- overwrite the DIFF_COMMAND to return the changed files compared to master branch
-ido_git.DIFF_COMMAND = 'git diff master --name-only'
+require("ido").pkg.setup('git-diff', {
+  pkg_opts = {
+    -- overwrite the DIFF_COMMAND to return the changed files compared to master branch
+    command = 'git diff master --name-only'
+  }
+})
 ```
 
-### Sources
+Or to overwrite it just for a single run:
 
-ido-git comes with several default sources:
-
-
-| source   | purpose |
-|----------|---------|
-| git-diff | returns the files changed since HEAD |
+```lua
+require("ido").pkg.run('git-diff', {
+  -- overwrite the DIFF_COMMAND to return the changed files compared to master branch
+  command = 'git diff master --name-only'
+})
+```
 
 ### Default Bindings
 
+The following default bindings are provided:
 
 | binding    | source |
 |----------|---------|
 | <leader>gd | git_diff |
+
+These can be overwritten using the [bind option](https://github.com/ido-nvim/core/blob/main/wiki/packages.md#pkgbindname-opts)
