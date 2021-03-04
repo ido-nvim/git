@@ -1,4 +1,4 @@
-# [WIP] Git
+# Git
 
 Git log, git status and git changed source for [ido.nvim](https://github.com/ido-nvim/core)
 
