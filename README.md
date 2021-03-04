@@ -18,15 +18,13 @@ For example using packer.nvim:
 use { 'ido-nvim/git' }
 ```
 
-### Run
-
-Before invoking the packages provided ensure `ido-nvim/git` has been registered with `ido.nvim` by requiring it:
+Before invoking/configuring the packages provided ensure `ido-nvim/git` has been registered with `ido.nvim` by requiring it:
 
 ```lua
 require('ido-nvim/git')
 ```
 
-To invoke the packages provided:
+### Run
 
 ```vim
 :lua require("ido").pkg.run(PKG_NAME, PKG_OPTS)
@@ -35,12 +33,6 @@ To invoke the packages provided:
 Where `PKG_NAME` is the package you wish to run.
 
 ### Configuration
-
-Before configuring the packages provided ensure `ido-nvim/git` has been registered with `ido.nvim` by requiring it:
-
-```lua
-require('ido-nvim/git')
-```
 
 You have the option to specify the git command used per source.
 
