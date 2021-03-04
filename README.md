@@ -8,6 +8,7 @@ Introduces the following ido packages:
 |------------|--------------------------------------|-----------------------|
 | git-diff   | returns the files changed since HEAD | `git diff --name-only`|
 
+
 ### Installation
 
 Install using your favorite package manager.
@@ -24,6 +25,7 @@ Before invoking/configuring the packages provided ensure `ido-nvim/git` has been
 require('ido-nvim/git')
 ```
 
+
 ### Run
 
 ```vim
@@ -31,6 +33,8 @@ require('ido-nvim/git')
 ```
 
 Where `PKG_NAME` is the package you wish to run.
+
+
 
 ### Configuration
 
@@ -55,6 +59,7 @@ require("ido").pkg.run('git-diff', {
   command = 'git diff master --name-only'
 })
 ```
+
 
 ## Keybindings
 ```vim
