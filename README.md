@@ -18,6 +18,12 @@ For example using packer.nvim:
 use { 'ido-nvim/git' }
 ```
 
+Then load the pkg somewhere in your configuration to register it:
+
+```lua
+require('ido-nvim/git')
+```
+
 ### Run
 
 ```vim
@@ -52,12 +58,13 @@ require("ido").pkg.run('git-diff', {
 })
 ```
 
-### Default Bindings
+## Keybindings
+```vim
+:lua require("ido").pkg.setup(PKG_NAME, {{bind = KEY_BIND}})
+```
 
-The following default bindings are provided:
+where
+- `PKG_NAME` is the package name
+- `KEY_BIND` is the keybinding in standard vim notation `:h key-notation`
 
-| binding    | source |
-|----------|---------|
-| <leader>gd | git_diff |
-
-These can be overwritten using the [bind option](https://github.com/ido-nvim/core/blob/main/wiki/packages.md#pkgbindname-opts)
+For more information refer to the [bind option](https://github.com/ido-nvim/core/blob/main/wiki/packages.md#pkgbindname-opts) documentation in the core repo.
