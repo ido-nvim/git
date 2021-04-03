@@ -1,73 +1,88 @@
 # Git
+Contains git related narrowing functions for Ido.
 
-Git log, git status and git changed source for [ido.nvim](https://github.com/ido-nvim/core)
+Introduces the following modules:
 
-Introduces the following ido packages:
+| Name | Description | Keybinding |
+| ---- | ----------- | ---------- |
+| `diff` | Edit changed files | `<Leader>gd` |
+| `files` | Edit git files | `<Leader>gf` |
+| `log` | View the commit log, requires [`vim-fugitive`](https://github.com/tpope/vim-fugitive) | `<Leader>gl` |
+| `status` | View the git status | `<Leader>gs` |
 
-| PKG_NAME   | purpose                              | default command       |
-|------------|--------------------------------------|-----------------------|
-| git-diff   | returns the files changed since HEAD | `git diff --name-only`|
+## Quick setup
+- Install the plugin:
 
+| Manager | Command |
+| [`plug`](https://github.com/junegunn/vim-plug) | `Plug 'ido-nvim/git'` |
+| [`vundle`](https://github.com/VundleVim/Vundle.vim) | `Plugin 'ido-nvim/git'` |
+| [`dein`](https://github.com/Shougo/dein.vim) | `call dein#add('ido-nvim/git')` |
+| [`minpac`](https://github.com/k-takata/minpac) | `call minpac#add('ido-nvim/git')` |
+| [`packer`](https://github.com/wbthomason/packer.nvim) | `use 'ido-nvim/git'` |
 
-### Installation
-
-Install using your favorite package manager.
-
-For example using packer.nvim:
+Setup the package:
 
 ```lua
-use { 'ido-nvim/git' }
+require("ido").setup{
+   packages = {
+      git = {}
+   }
+}
 ```
 
-Before invoking/configuring the packages provided ensure `ido-nvim/git` has been registered with `ido.nvim` by requiring it:
-
-```lua
-require('ido-nvim/git')
-```
-
-
-### Run
-
+## Run
 ```vim
-:lua require("ido").pkg.run(PKG_NAME, PKG_OPTS)
+:lua require("ido").module.run("git/MODNAME")
 ```
 
-Where `PKG_NAME` is the package you wish to run.
+where `MODNAME` is one of the four modules shown above
 
+## Settings
+The only setting (for now) in this package is `command`, which is executed to get the items
 
+| Module | Default value |
+| ------ | ------------- |
+| `diff` | `"diff --name-only"` |
+| `files` | `"ls-files"` |
+| `log` | `"log --format='%h%d %s %cr'"` |
+| `status` | `"status --short --untracked-files=all"` |
 
-### Configuration
-
-You have the option to specify the git command used per source.
-
-For example, in order to overwrite the command used by the `git_diff` source:
-
+## Example configuration
 ```lua
-require("ido").pkg.setup('git-diff', {
-  pkg_opts = {
-    -- overwrite the DIFF_COMMAND to return the changed files compared to master branch
-    command = 'git diff master --name-only'
-  }
-})
+require("ido").setup{
+   packages = {
+
+      -- Configure the `git` package
+      git = {
+
+         -- The `files` module configuration
+         files = {
+
+            -- Show modified files only
+            settings = {
+               command = "ls-files --modified"
+            },
+
+            -- The binding, like doing `noremap` in VimL
+            binding = {
+
+               -- Did you really think escaping from the Church of Emacs would
+               -- cure that RSI? Think twice, young padawan!
+               key = "<C-x>C-g><C-f>",
+
+               -- mode = "insert" -- Make this an insert mode mapping if you dare
+            }
+         },
+
+         -- The `status` module configuration
+         status = {
+
+            -- Change the prompt
+            options = {
+               prompt = "GStatus> "
+            }
+         }
+      }
+   }
+}
 ```
-
-Or to overwrite it just for a single run:
-
-```lua
-require("ido").pkg.run('git-diff', {
-  -- overwrite the DIFF_COMMAND to return the changed files compared to master branch
-  command = 'git diff master --name-only'
-})
-```
-
-
-## Keybindings
-```vim
-:lua require("ido").pkg.setup(PKG_NAME, {{bind = KEY_BIND}})
-```
-
-where
-- `PKG_NAME` is the package name
-- `KEY_BIND` is the keybinding in standard vim notation `:h key-notation`
-
-For more information refer to the [bind option](https://github.com/ido-nvim/core/blob/main/wiki/packages.md#pkgbindname-opts) documentation in the core repo.
