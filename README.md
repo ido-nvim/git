@@ -14,6 +14,7 @@ Introduces the following modules:
 - Install the plugin:
 
 | Manager | Command |
+| ------- | ------- |
 | [`plug`](https://github.com/junegunn/vim-plug) | `Plug 'ido-nvim/git'` |
 | [`vundle`](https://github.com/VundleVim/Vundle.vim) | `Plugin 'ido-nvim/git'` |
 | [`dein`](https://github.com/Shougo/dein.vim) | `call dein#add('ido-nvim/git')` |
